@@ -8,7 +8,7 @@ public class TestBuiltInMethod {
         int[] input2 = {0, 24, 7, 2, 5, 2, 11};
 
         Arrays.sort(input1);
-        Arrays.sort(input1);
+        Arrays.sort(input2);
         System.out.println(Arrays.toString(input1));
         System.out.println(Arrays.toString(input2));
     }

@@ -1,3 +1,5 @@
+package Leetcode;
+
 public class PerfectNumber {
     /**
     Primele 4 numere perfecte:
