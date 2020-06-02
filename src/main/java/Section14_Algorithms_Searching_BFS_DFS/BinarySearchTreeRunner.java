@@ -15,7 +15,30 @@ public class BinarySearchTreeRunner {
         tree1.insertNode(15);
         tree1.insertNode(170);
 
+        /**
+                    9
+                   /\
+                4      20
+               /\      /\
+             1   6   15  170
+
+         */
+
+
+        System.out.println("BFS:");
         System.out.println(tree1.BFS());
+
+        System.out.println("DFS - InOrder:");
+        tree1.DFSInorder(tree1.root);
+
+        System.out.println();
+        System.out.println("DFS - PreOrder:");
+        tree1.DFSPreOrder(tree1.root);
+
+        System.out.println();
+        System.out.println("DFS - PostOrder:");
+        tree1.DFSPostOrder(tree1.root);
+
 
 
     }

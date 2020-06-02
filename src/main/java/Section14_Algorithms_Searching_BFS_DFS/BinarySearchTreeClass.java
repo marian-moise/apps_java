@@ -6,7 +6,9 @@ public class BinarySearchTreeClass {
 
     NodeTree root;
 
-
+    /**
+     * BREATH FIRST SEARCH
+     */
     public List<Integer> BFS() {
         NodeTree currentNode = root;
         List<Integer> list = new ArrayList<>();
@@ -14,8 +16,8 @@ public class BinarySearchTreeClass {
         queue.add(currentNode);
 
         while (queue.size() > 0) {
-             currentNode = queue.remove();
-            System.out.println(currentNode.value);
+            currentNode = queue.remove();
+//            System.out.println(currentNode.value);
             list.add(currentNode.value);
             if (currentNode.left != null) {
                 queue.add(currentNode.left);
@@ -27,8 +29,70 @@ public class BinarySearchTreeClass {
         return list;
     }
 
+    /**
+     * DFS - Inorder
+     */
+
+    public void DFSInorder(NodeTree root) {
+        // return if the current node is empty
+        if (root == null) {
+            return;
+        }
+
+        // Traverse the left subtree
+        DFSInorder(root.left);
+
+        // Display the data part of the root (or current node)
+        System.out.print(root.value + ", ");
+
+        // Traverse the right subtree
+        DFSInorder(root.right);
+    }
+
+    /**
+     * DFS - PreOrder
+     */
+
+    public void DFSPreOrder(NodeTree root) {
+        // return if the current node is empty
+        if (root == null) {
+            return;
+        }
+        // Display the data part of the root (or current node)
+        System.out.print(root.value + ", ");
+
+        // Traverse the left subtree
+        DFSPreOrder(root.left);
 
 
+        // Traverse the right subtree
+        DFSPreOrder(root.right);
+    }
+
+    /**
+     * DFS - PostOrder
+     */
+
+    public void DFSPostOrder(NodeTree root) {
+        // return if the current node is empty
+        if (root == null) {
+            return;
+        }
+
+        // Traverse the left subtree
+        DFSPostOrder(root.left);
+
+
+        // Traverse the right subtree
+        DFSPostOrder(root.right);
+
+        // Display the data part of the root (or current node)
+        System.out.print(root.value + ", ");
+    }
+
+
+
+    //////////////////////////////////////////////////////////////
     public void insertNode(int value) {
 
         NodeTree newNode = new NodeTree(value);
