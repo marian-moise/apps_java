@@ -3,10 +3,10 @@ package Interviu;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FirstUniqueChar {
+public class FirstUniqueChar_Map {
     public static void main(String[] args) {
 
-        String s = "leetcode";
+        String s = "loveleetcode";
         System.out.println(firstUniqChar(s));
 
 

@@ -2,7 +2,7 @@ package Interviu;
 
 import java.util.*;
 
-public class ValidAnagram {
+public class ValidAnagram_Map {
     public static void main(String[] args) {
 
         String s = "anagram";
@@ -16,7 +16,8 @@ public class ValidAnagram {
         if (s.length() != t.length())
             return false;
         for (char c : s.toCharArray()) {
-            map.put(c, map.getOrDefault(c, 0) + 1);
+            map.put(c, map.getOrDefault(c,0) + 1);
+            System.out.println(map);
         }
         //System.out.println(map);
         for (char c : t.toCharArray()) {
