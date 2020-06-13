@@ -5,32 +5,32 @@ import java.util.*;
 
 public class IntersectionOfTwoArrays_Map {
     public static void main(String[] args) {
-        int[] nums1 = {4, 9, 5};
-        int[] nums2 = {4};
+        int[] nums1 = {4,9,5};
+        int[] nums2 = {9,4,9,5,8,4};
         System.out.println(Arrays.toString(intersect(nums1, nums2)));
     }
 
 
     public static int[] intersect(int[] nums1, int[] nums2) {
+        List<Integer> intersect = new ArrayList<>();
         Map<Integer, Integer> map = new HashMap<>();
-        for (int x : nums1) {
-            map.put(x,map.getOrDefault(x,0) + 1);
+
+
+        for(int num : nums1) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
-
-        List<Integer> list = new ArrayList<>();
-
-        for (int i = 0; i < nums2.length ; i++) {
-            if (map.containsKey(nums2[i]) && map.get(nums2[i]) > 0) {
-                map.put(nums2[i], map.get(nums2[i]) - 1);
-                list.add(nums2[i]);
+        for(int num : nums2) {
+            if(map.containsKey(num) && map.get(num) > 0) {
+                map.put(num, map.get(num) - 1);
+                intersect.add(num);
             }
         }
 
-        int[] intersect = new int[list.size()];
-
-        for (int i = 0; i < list.size() ; i++) {
-            intersect[i] = list.get(i);
+        int index=0;
+        int[] result = new int[intersect.size()];
+        for(int num : intersect) {
+            result[index++]=num;
         }
-            return intersect;
+        return result;
     }
 }
