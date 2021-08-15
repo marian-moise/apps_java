@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="CursUdemy" />
         <module name="Curs_Udemy" />
+        <module name="apps_java" />
       </profile>
     </annotationProcessing>
   </component>
