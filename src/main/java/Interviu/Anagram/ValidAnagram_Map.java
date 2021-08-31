@@ -1,4 +1,4 @@
-package Interviu;
+package Interviu.Anagram;
 
 import java.util.*;
 
