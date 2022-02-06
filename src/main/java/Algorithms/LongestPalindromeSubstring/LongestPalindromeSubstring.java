@@ -6,12 +6,12 @@ public class LongestPalindromeSubstring {
 //        String s_2 = "racecar";
         String s_2 = "abba";
 
-        //System.out.println("==============O(n^3)==============");
-        //System.out.println(getLongestPalindromeSubstring_1(s_1));
-        //System.out.println(getLongestPalindromeSubstring_1(s_2));
+        System.out.println("==============O(n^3)==============");
+        System.out.println(getLongestPalindromeSubstring_1(s_1));
+        System.out.println(getLongestPalindromeSubstring_1(s_2));
 
-        //System.out.println("==============O(n^2)==============");
-        //System.out.println(getLongestPalindromeSubstring_2(s_1));
+        System.out.println("==============O(n^2)==============");
+        System.out.println(getLongestPalindromeSubstring_2(s_1));
         System.out.println(getLongestPalindromeSubstring_2(s_2));
     }
 
