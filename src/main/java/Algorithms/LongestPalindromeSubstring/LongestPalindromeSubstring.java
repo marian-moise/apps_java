@@ -52,24 +52,25 @@ public class LongestPalindromeSubstring {
         if (s.length() < 2) {
             return s;
         }
+
         for (int i = 0; i < s.length(); i++) {
-            String response_1 = expandAndGet(s, i, i);
-            String response_2 = expandAndGet(s, i, i + 1);
-            if (response_1.length() > maxSubstring.length()) {
+            String response_1 = expandAndGetSubstring(s, i, i);
+            String response_2 = expandAndGetSubstring(s, i, i + 1);
+
+            if (maxSubstring.length() < response_1.length()) {
                 maxSubstring = response_1;
-            }
-            if (response_2.length() > maxSubstring.length()) {
+            } else if (maxSubstring.length() < response_2.length()) {
                 maxSubstring = response_2;
             }
         }
         return maxSubstring;
     }
 
-    private static String expandAndGet(String s, int left, int right) {
-        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
-            left--;
-            right++;
+    public static String expandAndGetSubstring(String s, int start, int end) {
+        while (start >= 0 && end < s.length() && s.charAt(start) == s.charAt(end)) {
+            start--;
+            end++;
         }
-        return s.substring(left + 1, right);
+        return s.substring(start + 1, end);
     }
 }
