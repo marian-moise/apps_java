@@ -15,6 +15,7 @@ public class Main {
 
         RandomTask randomTask = new RandomTask();
         randomTask.execute();
+        randomTask.execute("asd!!!!");
 
         IncrementTask incrementTask = new IncrementTask();
         IncrementTask incrementTask_2 = new IncrementTask();
