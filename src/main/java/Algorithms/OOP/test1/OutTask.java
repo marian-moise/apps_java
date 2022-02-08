@@ -1,4 +1,4 @@
-package Algorithms.OOP.delloitte;
+package Algorithms.OOP.test1;
 
 public class OutTask implements Task{
     @Override

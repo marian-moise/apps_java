@@ -1,4 +1,4 @@
-package Algorithms.OOP.delloitte;
+package Algorithms.OOP.test1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import java.util.List;
 public class Delloitte {
     /**
      *Class (interfata) Task – method execute()
-     * 3 classes – in each of the the execute method shoud have a different implementation
+     * 3 classes – in each of the the execute method should have a different implementation
      * OutTask -> will display a String
      * RandomTask -> will display a random number
      * IncrementTask -> will display the number of the instances of the class

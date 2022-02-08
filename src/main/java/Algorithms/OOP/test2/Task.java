@@ -1,4 +1,4 @@
-package Algorithms.OOP.delloitte;
+package Algorithms.OOP.test2;
 
 public interface Task {
     void execute();
