@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Main {
+public class MaximumSubstringNorepeatingChars {
     public static void main(String[] args) {
         String s = "abcabcabcaaa";
         System.out.println(lengthOfLongestSubstring_1(s));;
