@@ -60,28 +60,10 @@ public class NumberOfOddAndEvenDaysInYear {
     }
 
     private static int getSumOfOddNumbers(int number) {
-        int count = 0;
-        int index = 1;
-
-        while (index <= number) {
-            if (index % 2 != 0) {
-                count++;
-            }
-            index++;
-        }
-        return count;
+        return number / 2 + 1;
     }
 
     private static int getSumOfEvenNumbers(int number) {
-        int count = 0;
-        int index = 1;
-
-        while (index <= number) {
-            if (index % 2 == 0) {
-                count++;
-            }
-            index++;
-        }
-        return count;
+        return number / 2;
     }
 }
