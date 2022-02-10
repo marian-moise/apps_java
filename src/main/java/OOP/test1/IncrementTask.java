@@ -1,15 +1,13 @@
-package Algorithms.OOP.test2;
+package OOP.test1;
 
-public class IncrementTask implements Task {
-
+public class IncrementTask implements Task{
     private static int counter = 0;
 
+    public IncrementTask() {
+        counter++;
+    }
     @Override
     public void execute() {
         System.out.println(counter);
-    }
-
-    IncrementTask() {
-        counter++;
     }
 }

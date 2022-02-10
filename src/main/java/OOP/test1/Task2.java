@@ -1,4 +1,4 @@
-package Algorithms.OOP.test1;
+package OOP.test1;
 
 public abstract class Task2 {
     void doSomething() throws Exception{

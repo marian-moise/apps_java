@@ -1,8 +1,8 @@
-package Algorithms.OOP.test1;
+package OOP.test2;
 
 public class OutTask implements Task{
     @Override
     public void execute() {
-        System.out.println("Ego Zenovius votum posui");
+        System.out.println("String is displayed");
     }
 }

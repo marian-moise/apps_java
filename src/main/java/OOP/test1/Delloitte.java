@@ -1,4 +1,4 @@
-package Algorithms.OOP.test1;
+package OOP.test1;
 
 import java.util.ArrayList;
 import java.util.Arrays;

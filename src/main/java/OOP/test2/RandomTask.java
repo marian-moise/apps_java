@@ -1,4 +1,4 @@
-package Algorithms.OOP.test2;
+package OOP.test2;
 
 public class RandomTask implements Task {
     @Override
