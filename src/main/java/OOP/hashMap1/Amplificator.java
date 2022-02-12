@@ -1,4 +1,4 @@
-package OOP.hashMap;
+package OOP.hashMap1;
 
 public class Amplificator {
 

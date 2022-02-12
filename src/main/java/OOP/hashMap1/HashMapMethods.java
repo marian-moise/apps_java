@@ -1,14 +1,19 @@
-package OOP.hashMap;
+package OOP.hashMap1;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class HashMapMethods {
     public static void main(String[] args) {
-        Amplificator amplificator_1 = new Amplificator(1, "Fender");
-        Amplificator amplificator_2 = new Amplificator(1, "Fender");
+        Amplificator amplificator_1 = new Amplificator(55, "Fender");
+        Amplificator amplificator_2 = new Amplificator(56, "Fender");
+
+        List<Amplificator> list = new ArrayList<>();
+        list.add(amplificator_1);
+        list.add(amplificator_2);
+
+        for (Amplificator a : list) {
+            System.out.println(a.marca);
+        }
 
         Map<Amplificator, Integer> map = new HashMap<>();
         map.put(amplificator_1, 1);
@@ -45,6 +50,8 @@ public class HashMapMethods {
         map_3.put(amplificator_1, "Blue");
 
         System.out.println(map_3.values());
+
+        System.out.println(map.get(amplificator_3));
 
     }
 }

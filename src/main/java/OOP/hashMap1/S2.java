@@ -1,4 +1,4 @@
-package OOP.hashMap;
+package OOP.hashMap1;
 
 public class S2 {
     void m(S2 obj){
