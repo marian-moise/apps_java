@@ -1,0 +1,268 @@
+<!-- singletonm implementare: -->
+<!-- diferenta intre singleton si cl;asa statica -->
+<!-- hibernate - eager lazy  -->
+<!-- problema cu string si caractere cu vocale - normal si cu streaams - de scos vocale dintr un string sau de scos caraxctere -->
+<!-- sql - arbore binar -->
+<!-- sql : PK si FK5 -->
+<!-- normalizare DB -->
+<!-- java: in ce versiune a aparut nu stiu ce functie - cultura generala + ordonarea in ordinea aparitiei PE versiuni de java au aparut anumite functii -->
+<!-- streams: imbunatatesc performanta sau nu -->
+<!-- erori si exceptii ierarhie -->
+<!-- checked si uncheked -->
+<!-- ce e runnable? -->
+<!-- care str de date nu mosteneste collection -->
+<!-- interfete functionale - diferenta dintre interfete si interfete functionale - functii lambda pe int functionala -->
+<!-- diff string builder si string buffer -->
+<!-- ce e callable? -->
+<!-- threads - cum faci stream sa ruleze pe thread - functie; -->
+<!-- probleme daca returneaza codu -->
+<!-- polimorfism, genericitate, m,ostenire, etc; -->
+<!-- algoritmi - vezi hackerrank -->
+
+======================================================================<><><>IMPLEMENTARE SINGLETON<><><>===========================================================
+- variabila privata de clasa (statica);
+- constructor privat;
+- o metoda statica publica pentru a obtine o singura instanta;
+
+<>poate fi implementat ca o clasa simpla - pentru varianta cu singlethreading:
+
+public final class ClassSingleton {
+
+    private static ClassSingleton INSTANCE;
+
+    private ClassSingleton () {
+    }
+
+    public static ClassSingleton getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE =  new ClassSingleton();
+        }
+        return INSTANCE;
+    }
+}
+
+<>!!!!!! DACA AVEM MULTITHREADING metoda de getInstance() de mai sus poate crea instante multiple si atunci va deveni: 
+ public synchronized  static ClassSingleton getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE =  new ClassSingleton();
+        }
+        return INSTANCE;
+    }
+
+use: ClassSingleton classSingleton = ClassSingleton.getInstance();
+
+<>poate fi implementat ca si enum:
+
+public enum EnumSingleton {
+    INSTANCE;
+
+    EnumSingleton() {
+    }
+
+    public EnumSingleton getInstance() {
+        return INSTANCE;
+    }
+}
+
+use: EnumSingleton enumSingleton = EnumSingleton.INSTANCE.getInstance();
+
+- varinata cu enum are serializare si thread-safety garantate chiar prin implementarea enumului;
+- serializare - procesul de a converti un obiect in byte streaml
+- deserializare - procesul de a converti un byte stream in obiect;
+- acest mecanism de serializare este foplosit in stocarea obiectelor in baza de date - in persistarea obiectelor;
+- pentru a face un obiect serializabil trebuie sa implementam  java.io.Serializable;
+- avantaje serilaizare - de a transporta un obiect in cadrul unei retele;
+- diferenta dintre singleton si clasa statica - clasa statica nu poate fi extinsa; greu de testat;
+
+=======================================================================================================================================================================
+
+======================================================================<><><>HIBERNATE - EAGER / LAZY LOADING<><><>=====================================================
+- eager loading = design pattern in care initializarea se face pe loc;
+- lazy loading  = design pattern in care initializarea este intarziata pe cat de mult posibil;
+
+fetch = FetchType.LAZY sau FetchType.EAGER;
+- cand se incarca obiectul in memorie daca are pe un anumit field LAZY atunci nu se va incarca si acel field;
+- daca este anotat cu lazy, fieldul se va initializa doar atunci cand il chemam cu o metoda anume, sau cu un getter;
+
+<>LAZY LOADING:
+Advantages:
+    - Much smaller initial load time than in the other approach
+    - Less memory consumption than in the other approach
+Disadvantages:
+    - Delayed initialization might impact performance during unwanted moments.
+    - In some cases we need to handle lazily initialized objects with special care, or we might end up with an exception.
+
+<>EAGER LOADING:
+Advantages:
+    - No delayed initialization-related performance impacts
+Disadvantages:
+    - Long initial loading time
+    - Loading too much unnecessary data might impact performance
+=======================================================================================================================================================================
+
+======================================================================<><><>EXTRACT CHARACTERS FROM STRING<><><>=====================================================
+<>varianta bruta:
+class Main {
+    public static void main(String[] args) {
+        String string = "pneumonoultramicroscopicsilicovolcaniconioza";
+        //answer : 18 vocale
+
+        System.out.println(numberOfVowls_1(string));
+        System.out.println(numberOfVowls_2(string));
+
+    }
+
+    private static int numberOfVowls_1(String string) {
+        int counter = 0;
+        for (int i = 0; i < string.length(); i++) {
+            char ch = string.charAt(i);
+            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+                counter++;
+            }
+        }
+        return counter;
+    }
+}
+
+<>varianta cu streams:
+ private static long numberOfVowls_2(String string) {
+         return string.chars().filter(ch -> ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o'
+                || ch == 'u').count();
+    }
+=======================================================================================================================================================================
+
+======================================================================<><><>SQL<><><>==================================================================================
+lob = large object type = tip de data in sql care poate stoca cantitati mari de date - se folosesc la stocarea fisierelor;
+blob = tip de data in sql care socheaza bytecode streams (streams = secvente de date);
+clob = tip de data in sql care stocheaza character streams;
+bytecode = in momentul in care programul java e compilat este generat bytecodul = cod masina sub forma unui fisier de tip .class;
+         = este un set de instructiuni pentru JVM; 
+-> cod sursa -> compliler -> bytecode -> JVM -> machine code;
+-> bytecode-ul este non-runnable si necesita un interpretator - aici intervine JVM-ul;
+
+streams: imbunatatesc performanta sau nu
+erori si exceptii ierarhie si cu se se mananca
+checked si uncheked
+
+1. BINARY TREES:
+- binary trees in sql:
+    - nested set solution
+    - binary heap solution
+
+binary tree = structura de date in care acestea sunt aranjate ierahic sub forma de parinti si copii;
+- poate avea 0, 1 sau maxim 2 copii;                               
+- logaritm = puterea la care trebuie ridicata baza pentru a produce numarul x
+- cautarea este Ologn ;
+
+2. PK VS FK:
+- PK este o coloana sau grup de coloane care ofera un identificator unic pentru fiecare rand dintr-un tabel
+- FK este referinta catre PK din tabela principala
+
+3. NORMALIZARE DB = este un proces de optimizare prin care se incearca minimizarea redundantei datelor si a anomaliilor de introducere, actualizare si stergere;
+= este un proces prin care datele sunt grupate intr-un tabel, iar orice alte date atributive sau conexe indirect sunt plasate in diferite tabele, tabele conectate printr-o retea logica intre ele; 
+
+- avantaje:
+    - creste consistenta datelor - este evitata astfel duplicarea datelor pentru ca ele sunt stocate intr-un singur loc;
+    - gruparea datelor similare sau conexe in aceeasi schema;
+
+- dezavantaje:
+    - nu gasim toate datele intr-un singur loc, este nevoie sa interogam mai multe tabele pentru a gasi datele;
+
+- Entitate - numele unui obict din viata reala - abstractizat sub forma unui tabel;
+- Atribut - caracteristicile acelei entitati - coloanele sunt atributele unei entitati;
+
+- formele normale:
+    - 1NF - prima forma normal:
+            * coloanele trebuie sa aiba denumiri unice;
+            * datele stocate pe fiecare coloana trebuie sa aiba acelasi tip;
+            * valori atomice pe fiecare coloana;
+            * nu conteaza ordinea de stocare a datelor;
+            Initial:
+             StudentId       Materie
+             101      Analiza, Programare, Economie
+             102      Analiza, Algebra
+
+            1NF:
+             StudentId       Materie
+             101     Analiza
+             101     Programare
+             101     Economie
+             102     Analiza
+             102     Algebra
+
+    - 2NF - a doua forma normala:
+            * apartine primei forme normale;
+            * nu avem dependinte partiale intre coloane;
+            Initial
+             StudentId   ProiectId   NumeStudent     NumeProiect
+
+            2NF
+            Studenti
+             StudentId   ProiectId   NumeStudent
+
+            Proiecte
+             ProiectId   NumeProiect
+
+    - 3NF - a treia forma normala:
+            * apartine de 2NF;
+            * nu trebuie sa existe dependinte tranzitive (adica coloane care sa depinde de alte atribute decat cheia/cheile primare);
+            Initial
+             StudentId  NumeStudent  NumeOras  CodOras
+
+            3NF
+            Studenti
+             StudentId  NumeStudent  CodOras
+
+            Orase
+            CodOras NumeOras
+
+    - Boyce-Codd - daca este deja in a treia forma normala si pentru fiecare dependenta functionala intre A si B, A ar trebui sa fie o supercheie;
+    - 4NF - daca nu are doua sau mai multe date independente care descriu entitatea relevanta;
+    - 5NF - daca este in 4NF si poate fi impartit in mai multe tabele fara pierderea datelor; 
+=======================================================================================================================================================================
+
+======================================================================<><><>JAVA VERSIONS WITH FEATURES<><><>==========================================================
+- java 8:
+Lambda expression support in APIs
+Stream API
+Functional interface and default methods
+Optionals
+
+- java 17 - cea mai recenta versiune de java
+=======================================================================================================================================================================
+
+
+======================================================================<><><>JAVA STREAMS<><><>=========================================================================
+- Streams provide scope for future efficiency gains. Some people have benchmarked and found that single-threaded streams from in-memory Lists or arrays can be slower 
+than the equivalent loop. This is plausible because there are more objects and overheads in play.
+- Streams encourage less mutability. This is sort of related to the functional programming aspect -- the kind of programs you write using streams tend to be the kind 
+of programs where you don't modify objects.
+- Streams encourage looser coupling. Your stream-handling code doesn't need to know the source of the stream, or its eventual terminating method.
+Disadvantages?
+
+Performance: A for loop through an array is extremely lightweight both in terms of heap and CPU usage. If raw speed and memory thriftiness is a priority, using a stream 
+is worse.
+
+Familiarity.The world is full of experienced procedural programmers, from many language backgrounds, for whom loops are familiar and streams are novel. In some environments
+, you want to write code that's familiar to that kind of person.
+
+Cognitive overhead. Because of its declarative nature, and increased abstraction from what's happening underneath, you may need to build a new mental model of how code 
+relates to execution. Actually you only need to do this when things go wrong, or if you need to deeply analyse performance or subtle bugs. When it "just works", it just works.
+
+Debuggers are improving, but even now, when you're stepping through stream code in a debugger, it can be harder work than the equivalent loop, because a simple loop is 
+very close to the variables and code locations that a traditional debugger works with.
+
+
+=======================================================================================================================================================================
+
+
+======================================================================<><><>FUNCTIONAL INTERFACES<><><>================================================================
+= sunt interfete cu o singura metoda abstracta, dar care pot avea mai multe metode default;
+
+Runnable –> This interface only contains the run() method.
+Comparable –> This interface only contains the compareTo() method.
+ActionListener –> This interface only contains the actionPerformed() method.
+Callable –> This interface only contains the call() method.
+
+
+=======================================================================================================================================================================

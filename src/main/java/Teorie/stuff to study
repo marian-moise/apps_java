@@ -1,0 +1,99 @@
+- design patterns: singleton, factory;
+- interfaces, abstract classes;
+- dependency injection;
+- inversion control;
+
+******************************************************DEPENDENCY INJECTION******************************************************************
+* DEPENDENCY INJECTION = The act of connecting objects with other objects, or “injecting” objects into other objects, is done by an assembler rather than by the objects themselves.
+
+- ecplicatie cu exemplul BEC-ENERGIE;
+    - varianta puternic cuplata:
+         - in aceasta varianta se vor crea clasa Bec in care avem ca parametri un obiect energie de tip Energie, un constructor de bec care primeste ca parametru obiectul energie de tip Energie si o metoda aprinde() care ne zice daca becul se poate aprinde sau nu;
+          - clasa Energie care are ca parametru nivelul de energie pe care il va lua becul si un constructor de energie care va da si valori pentru nivelul de energie - analog si pentru Eoliana si Solara;
+          - clasa Runner in care instantiem obiecte de tip Bec si Energie;
+          - dupa cum se observa pentru a schimba tipul de energie este necesara crearea unor alte clase (Eoliana, Solara, etc.) care sa contina parametrul de nivelEnergie - asta implica crearea unor noi metode care sa primeasca parametri de tip Eoliana, Solara;
+	- varianta slab cuplata - cu dependency injection:
+			- presupune crearea unei interfete sau clase abstracta, care sa generalizeze clasa Energie;
+			- interfata va avea doar o metoda de getNivelEnergie() ce se va suprascrie in clasele ce o implementeaza;
+			- in clasele EnergieSolara si EnergieEoliana se vor defini cate un field cu :
+											- int nivelEnergie;
+											- constructor pentru energia respectiva care va primi ca parametru nivelEnergie;
+											- @Override pe getNivelEnergie() {return nivelEnergie;};
+DEPENDENCY INJECTION - este o tehnica prin care un obiect primeste alte obiecte ca parametri de care depinde;
+- un alt exemplu : daca vrem sa construim o casa dintr-o stiva de dulapi de scandura - folosim dulapii pana cand ajungem la un element de tip usa sau fereastra pe care nu il vom face de la 0 din dulapi ci ii vom comanda prefabricati;
+- practic se optimizeaza procesul si nu se mai pierde timp cu functii suplimentare pentru crearea "usii" sau "ferestrei";
+
+
+******************************************************INVERSION OF CONTROL***************************************************************
+
+* INVERSION OF CONTROL => principiu prin care clasele sunt instantiate de Spring;
+= is a principle in software engineering by which the control of objects or portions of a program is transferred to a container or framework.
+
+- Aplication context: -> locul unde Spring instantiaza clase pe baza unui fisier .xml;
+- mod de instantiere: 
+         -> se creaza un fisier xml in care se creaza un 'bean';
+         -> 'bean' termen in spring pentru un obiect care este creat cu dependency injection;
+         -> dependency injection nu presupune utilizarea keywordului 'new'; 
+         -> de discutat : incarcarea fisierelor in functie de mediul de dezvolatre
+
+******************************************************SINGLETON***************************************************************
+
+SINGLETON -> design pattern(concept) ce permite crearea unei singure instante de clasa(crearea unui singur obiect din acea clasa;)
+
+Exemplu:
+
+class Singleton {
+	1. Obiectul instantiat:
+	static Singleton obj = new Singleton();
+
+	2. Constructor priavt:
+	private Singleton() {
+	//......//
+	}
+
+	3. Metoda de returnare a instantei unice:
+	 public static Singleton getInstance() {
+	return obj;
+	}
+}
+
+
+******************************************************FACTORY***************************************************************
+
+FACTORY 
+***best expl!!!-> presupune incapsularea instantierii subclaselor intr o alta clasa ce contine o metoda getInstance(ce are un 
+parametru pe baza caruia se decide ce clasa va instantia obiectul);
+-> este o clasa care da un obiect;
+
+-> o clasa wrapper prin care se instantiaza obiecte de tip "OS" (vezi ex de mai jos) printr-o metoda public OS getInstance(String conditie){ return OS object} ce returneaza un obiect de tip OS dar cu carcateristicile subclaselor "Android", "IOS", "Windows";
+-> o clasa prin intermediul careia se instantiaza obiecte cu o interfata si se returneaza obiectele respective in functie de o caracteristica a unei clase ce implementeaza aceasta interfata;
+
+
+
+-> poate fi o interfata sau o clasa abstracta;
+-> defineste o interfata pentru crearea unui obiect dar permite subclaselor sa decida cine si ce instantiaza;
+
+Exemplu:
+-> definire interfata OS;
+-> definire subclasa care imlementeaza interfata OS:
+             - Android;
+             - IOS;
+             - Windows;
+-> definire clasa OperatingSystemFactory care este de fapt un Factory ce contine o metoda ce incapsuleaza modalitatea de 
+instantiere a obiectelor subclaselor; 
+
+Interfata => - clasa ce contine metode abstracte - fara corp;
+			 - nu pot fi instantiate;
+			 - poate extinde mai multe interfete;
+			 - modificator de acces public;
+
+Clasa 
+abstracta => - contine variabile pe care le putem modifica;
+		     - contine metode atat metode abstracte cat si metode non-abstracte;
+			 - nu poate fi instantiata;	
+
+
+POLIMORFIDM = abilitatea unui obiect de a lua mai mukte forme;
+= o clasa se poate comporta ca mai multe clase;
+=> orice obiect Java care se poate transmite de mai multe ori ca un ESTE-UN/O este considerat polimorfic;		 
+  		     

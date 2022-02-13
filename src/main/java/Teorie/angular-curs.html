@@ -1,0 +1,293 @@
+========================================================<General>===================================================
+
+<Create_new_angular_app>:
+
+npm install -g @angular/cli
+ng new my-dream-app
+cd my-dream-app
+ng serve
+
+<const_vs_let>
+const = daca nu intentionam sa schimbam variabila respectiva;
+let = daca vaiabila respectiva se poate schimba ulterior;
+
+<install_the_Bootstrap_CSS_Framework>:
+
+npm install --save bootstrap@3  => The @3  versiunea de bootstrap
+ng -v => verifica versiunea de angular -> Angular CLI 6+
+
+Obs:
+
+Additionally, when using a project created with  (check via ng --version ) Angular CLI 6+,
+you'll have an angular.json  file instead of an .angular-cli.json  file. In that file,
+you still need to add Bootstrap to the styles[]  array as shown in the next video, but 
+the path should be node_modules/bootstrap/dist/css/bootstrap.min.css , 
+NOT ../node_modules/bootstrap/dist/css/bootstrap.min.css . The leading ../  must not be included.
+
+<CLI_commands> Command Line Interface
+create component with CLI: ng g c name-component
+create directive with CLI: ng g d name-directive
+
+=========================================<Components_DataBinding>===================================================
+
+<Databinding> = modalitatea de comunicare dintre ts code (business logic) si template (HTML);
+
+		1.Output data: comunicare dinspre ts -> template:
+
+		T.S. ---------------------------------> HTML
+			a) <String_Interpolation>:
+				 => se pot folosi campuri din fisierele de ts in template 
+				 - sintax: {{data}};
+
+			b) <Property_Binding>: 
+				 => se pot manipula proprietatile template ului de html : spre ex proprietatea 'disabled' din <button 	disabled="true"></button> se poate manipula astfel <button [disabled] = "x"></button> unde x poate fi alterata prin intermediul unei metode;
+				 - sintax: [property]="data"
+
+		2.React to Events(User): comunicare dinspre template -> ts:	
+
+		T.S. <--------------------------------- HTML				 
+
+			a) <Event_binding>:
+				=> se pot manipula elementele DOM ului prin bndingul la evenimentele disponibile pt aceste elemente. Spre ex <button onclick="true"></button> are eventul click, se poate face binding cu elementele din ts prin sintaxa <button (click) = onClickFunction($event)></button>;
+				=> $event - keyword rezervat in template cand se foloseste event bindingul si contine data care este emisa odata cu eventul respectiv -> input si click sunt evenimnete default care vin cu date legate de coordonatele unde s-a dat clickul sau cu date legate de ce s-a introdus in input fieldul respectiv; Cu $event se pot captura datele respective si se pot insera ca argument in functii de ts; 
+				=> se pot crea si evnturi custom utilizand: @Output() emmitedIngredient = new EventEmitter(); 
+				- sintax: (event) = "expresion()"
+				Ex:
+				Returnare valoare din obiectul generat la producerea eventului:
+				->type script:
+				test = '';
+				onType(event: Event) {
+   				this.test = (event.target as HTMLInputElement).value;}
+   				-> HTML:
+   				<input type="text" id="name" class="form-control" (input)="onType($event)">
+   				<p>{{test}}</p>
+
+
+		3. Combined: property binding + event binding
+
+		T.S. ---------------------------------> HTML
+		T.S. <--------------------------------- HTML
+
+			a) <Two way binding>:
+				=> spre ex in <input type="" name=""> se poate face atat single binding <input type="" name="" (input) = "function($event)"> adica in functie de ce se pune in input se modifica si in componenta de ts ce e in obiect, sau se poate face double binding <input type="" name="" [(ngModel)] = "ceva">, daca se modifica inputul se modifica si obiectul si invers - este in acelasi timp si property binding si event binding;
+				=> pentru a folosi acest tip de binding avem nevoie de FormsModule importat in app.module.ts
+				- sintax: [(ngModel)] = "data"
+
+<Directives>:
+				=> sunt instructiuni in cadrul DOM -ului';
+				=> componentele sunt un tip de directive;
+				=> directivele pot fi atat componentele (directive care au template) dar pot fi si directive de 
+				   tip atribute sau directive de tip structural;
+				=> <atribute_directives>: [ngStyle], [ngClass], [ngModel] -> nu modifica structura DOM ului;
+				[ngStyle]="{backgroundColor: x % 5 === 0 ? 'blue' : 'transparent'}" -> aplica css doar local, sau [ngClass]="{'color-text' : i % 5 === 0}" -> aplica css pe toata clasa;
+				=> <structural_directives>: *ngIf, *ngFor, *ngSwitchCase -> modifica structura DOM ului prin adaugare, manipulare sau stergere de elemente;
+
+<Modules>: 
+				=> angular foloseste componente pentru a construi pagini web si foloseste modules pentru a organiza componentele in pachete - face un bundle al componentelor --> app.module;
+				=> module = un bundle de functionalitati ale aplicatiei;
+
+<Comunicarea_intre_componente>:
+1. Parent - Child Comunication:
+
+			a) Custom property binding:
+				=> @Input() = decorator: se pune in fata unei proprietati dintr o componenta copil pentru a putea fi utilizata ca input intr o componenta parinte;
+
+			b) Custom event binding:
+				=> pentru a transforma o proprietate custom intr un event este necesara urmatoarea sintaxa:
+				@Output() property = new EventEmitter<typeOfEventData>();
+				this.property.emit();
+				=> @Output = decorator: permite 'ascultarea' din afara componentei - permite emiterea evenimentului din interiorul componentei copil catre componenta parinte;
+
+2. Child - Child Binding Comunication: - to do!
+
+3. Local References:
+			 a) #referenceName -> se poate folosi doar in cadrul templateului nu si in cadrul ts;
+			 				   -> se poate pune pe orice element din template;
+			 				   Ex:
+			 				   -> in <template>
+			 				   <input type="text" name="" class="form-control" #referenceName>
+			 				   <button class="btn btn-primary" (click)="someFunction(referenceName)">Something</button>
+			 				   -> in <type_script>:
+			 				   	someFunction(referenceName) {console.log(referenceName);}
+			 				   -> se pune referinta ca parametru in cadrul functiei accesata pe buton;
+
+			b) @ViewChild      -> sintax:
+							   ->in <template>:
+									<input type="number" id="amount" class="form-control" #inputAmount>
+									<app-shopping-list-edit (emmitedIngredient)="addToList($event)"></app-shopping-list-edit>
+
+								->in <type_script>:
+  								@ViewChild('inputAmount') amount: ElementRef;
+  								@Output() emmitedIngredient = new EventEmitter();
+
+  								emittedListItem() {
+    								const ingredient = new Ingredient(this.name.nativeElement.value, Number(this.amount.nativeElement.value));
+    								this.emmitedIngredient.emit(ingredient);
+    								console.log(ingredient);}
+
+=============================================<SERVICES_&_DEPENDENCY_INJECTION>======================================
+
+=>dependency injection se face prin intermediul constructorilor;
+			constructor(private someVariableFromService: serviceType) { }
+
+			function() {
+				return this.someVariableFromService.property;}
+
+======================================================<ROUTING>=====================================================
+
+<Configurare_Route>:
+1.se creeaza o noua componenta app-routing.module;
+
+			import...
+
+			const appRoutes: Routes = [{path: 'someRoute', component: SomeComponent},
+									   {path: 'otherRoute', component: otherComponent},
+									   {path: 'not-found', component: PageNotFoundComponent},
+									   {path: '**', redirectTo: '/not-found'}];
+
+<redirectionarea cu ** se va insera la sfarsitul arrayului -> path urile sunt analizate in ordine de sus in jos;>	   		
+			@NgModule({
+				imports: [RouterModule.forRoot(appRoutes)],
+				exports: [RouterModule]
+			})
+
+			export class AppRoutingModule {
+				
+			}
+
+2.in app.module.ts se adauga la imports AppRoutingModule;
+3.in app component componenntele pentru care s a facut routingul se inlocuiesc cu <router-outlet></router-outlet>;
+4.conectare elemente cu router_link sau programatic_routing;
+
+<Programatic_Routing>:
+
+			<button class="" (click) = "someMethod()"></button>
+			constructor(private router: Router) { }
+			someMethod() {
+				//code
+				this.router.navigate(['/someRoute']);}
+
+<Router_Links>:
+
+			<a routerLink="/someRoute"></a>
+			=> or with property binding:
+			<a [routerLink]="['/someRoute']"></a>
+
+
+==================================================<OBSERVABLES>=====================================================
+
+Observables = diverse surse de date spre ex: Events, Http Requests, etc;
+Observer = codul -> spre ex functia <subscribe(){};>
+Asyncronous tasks = nu se stie cand se declanseaza sau cat timp dureaza;
+
+-> ex aplicare functie <subscribe()>:
+
+userActivated = false;
+ngOnInit() {
+    this.userService.event.subscribe(didActivate => {
+      this.userActivated = didActivate;
+    });
+  }
+
+<Obs!> Este recomandata folosirea lui Subject() in locul lui EventEmitter() deoarece este mai rapid;
+<Important!> Daca se foloseste Subject() este necesar unsubscribe() + ngOnDestroy();
+<Obs!> Daca se foloseste decoratorul @Output se va folosi in continuare EventEmitter<>();
+
+============================================<HANDLING_FORMS>========================================================
+1.<Template_Driven>:
+-> import FormsModule in app.module.ts;
+
+
+2.<Programatic_Method>:
+-> import ReactiveFormsModule in app.module.ts;	
+-> se poate crea un model care se va sinconiza cu template-ul
+-> pt sync este necesar ca in template, in form sa folosim formGroup:
+
+		-> in TS: se va crea un obiect de tip FormGrouup: 
+		modelForm: FormGroup
+		-> se va initializa in cadrul metodei 
+		ngOnInit() {
+ 			this.modelForm = new FormGroup({
+ 			'username': new FormControl(null),})} 
+ 		-> in template:		
+		<form [formGroup]="modelForm">
+			<input type="text"
+			formcontrolName="username"> -> 'username' din type script
+		</form>
+
+-> pentru a face submit la form:
+
+		<form [formGroup]="modelForm"
+		(ngSubmit)="onSubmit()">
+		</form>
+		-> in TS:
+		onSubmit() {console.log(this.modelForm);}
+
+-> validare form:
+		-> nu se configureaza din template ci din type script;
+		-> se foloseste Validators.required in parametrii obiectului nou creat;
+		ngOnInit() {
+ 			this.modelForm = new FormGroup({
+ 			'username': new FormControl(null, Validators.required),})}
+
+ 		<input type="" name="">
+ 		<span *ngIf="!modelForm.get('username').valid && modelForm.get('username').touched"
+ 		class="help-block">Please enter something valid!!!</span> 	
+
+ 		-> pentru a se evidentia validitatea input-fieldului se poate adauga in css:
+ 		input.ng-invalid.ng-touched {
+ 		border: 1px solid red;}		
+
+================================================<PIPES>=============================================================
+	= permit transformarea outputului din cadrul template-ului;
+	=> CLI: 'ng g p name-of-the-pipe'
+	=> built-in pipes:  {{someProperty | date}}
+			- date;
+			- upercase;
+			- slice;
+	=> configure pipes: {{someProperty | date:'fullDate'}}
+	=> vezi: <https://angular.io/api>
+	=> custom pipe:
+
+			@Pipe({name: 'shorten'})
+			export class Pipe implements PipeTransform {
+			transform(value: any, limit: number) {return value.substr(0, limit);}}
+
+			-> in app.module trebuie adaugat la <declarations:> Pipe, ca si directivele si componentele
+			-> in template: {{someProperty | shorten: 5}}
+
+	=> limitations using pipes: by default pipeul nu va recalcula datele de pe pagina, dar se poate schimba acest lucru adaugand pure: false astfel: @Pipe({name: 'shorten', pure: false}). Nu este recomandat!!! Poate afecta negativ performanta paginii respective;
+
+============================================<HTTP_REQUESTS>=========================================================
+-> URL(API endpoint) => /posts/1
+-> Http Verb : POST, GET, PUT, etc;
+-> in app.module import {HttpClientModule} in imports: [];
+-> pt a se accesa se va injecta in constructor;
+-> creare post: onCreatePost(){}
+-> http requests sunt observabile; deci trebuie facut subscribe la eventul respectiv;
+
+
+===========================================<AUTHENTIFICATION>=======================================================
+
+==========================================<DYNAMIC_COMPONENTS>======================================================
+
+===============================================<MODULES>============================================================
+
+================================================<DEPLOY>============================================================
+
+
+
+<!-- <25_h_remainig> -> 200h reale
+<6_h_done> -> 48h reale
+16.08.2020 - S7 + S8 + S9 + S10 + S11 = 4.5h;
+17.08.2020 - S12 + S13 + S14 + S15 = 3.7h; -->
+<!-- 18.08.2020 - S16 -->
+ + S17 + S18 + S19 = 4.1h;
+19.08.2020 - S20 + S21 + S22 + S23 = 3.8h;
+20.08.2020 - S24 = 4.9h;
+21.08.2020 - S25 + S26 + S27 + S28 + S29 + S30 + S31 + S32 = 4h;
+
+
+
+======================================================<FLEX LAYOUT>=====================================================
+npm install @angular/flex-layout --save

@@ -1,0 +1,159 @@
+source: https://www.baeldung.com/spring-annotations-resource-inject-autowire
+
+WIRING IN SPRING:
+
+================================================================
+2. @Resource: combina DI cu Ambiguity
+
+2.1 FIELD INJECTION:
+
+	-> are urmatoarele execution paths: 
+			- Match by Name;       |
+			- Match by Type;       |---> aplicabile atat pt setter cat si pentru field injection;
+			- Match by Qualifier;  |
+
+2.1.1 Match by name:  
+			@Resource(name="namedFile")
+    		private File defaultFile;
+
+    -> Aici se obtine dependency by name prin transmiterea in bean ul de nume ca atribut o anumita valoare;
+
+2.1.2 Match by type:
+			@Resource
+    		private File defaultFile;
+
+    -> daca anotarea nu primeste un nume de bean atunci va trece by default la match-by-type;
+
+2.1.3 Match by Qualifier:
+
+			@Resource
+			@Qualifier("defaultFile")
+			private File dependency1;
+ 
+			@Resource
+			@Qualifier("namedFile")
+			private File dependency2;
+
+	-> daca nu ar fi anotarea de qualifier se va arunca o exceptie pt ca aplication contextul vede doua bean uri de acelasi tip si nu stie in care bean sa rezolve dependinta;
+	-> astfel annotarea de Qualifier elimina orice confuzie permitand injectarea de dependinte specifice intr o anumita clasa;
+
+
+2.2 SETTER INJECTION:
+
+2.2.1 Match by name:  
+			private File defaultFile;
+			@Resource(name="namedFile")
+			protected void setDefaultFile(File defaultFile) {
+    			this.defaultFile = defaultFile;}
+    -> apare in plus o metodda de set;
+
+2.2.2. Match by Type:
+			private File defaultFile;
+			@Resource
+			protected void setDefaultFile(File defaultFile) {
+    			this.defaultFile = defaultFile;}
+
+2.2.3. Match by Qualifier:
+			
+   			@Resource
+    		@Qualifier("namedFile")
+    		public void setArbDependency(File arbDependency) {
+        	this.arbDependency = arbDependency;}
+ 
+    		@Resource
+    		@Qualifier("defaultFile")
+    		public void setAnotherArbDependency(File anotherArbDependency) {
+        	this.anotherArbDependency = anotherArbDependency;}
+
+================================================================
+3. @Inject:
+
+	->pentru a avea acces la aceasta annotare trebuie sa bagam niste dependinte in Maven:
+			<dependency>
+   					<groupId>javax.inject</groupId>
+    				<artifactId>javax.inject</artifactId>
+    				<version>1</version>
+			</dependency>
+
+
+================================================================
+						 REZUMAT - mai clar
+================================================================
+
+4. @Autowired si @Inject fac acelasi lucru si cauta dupa:
+    1. Type
+    2. Qualifier
+    3. Name
+
+	@Autowired:
+	-> permite conectarea a doua beanuri din containerul de Spring;
+	-> @Qualifier: permite recunoasterea nuni obiect dupa numele clasei dar cu litera mica la inceput daca e default sau in @Component se poate specifica alt nume pentru obiectul instantiat din clasa respectiva( adica singletonul);
+	-> @Component practic creeaza in containerul de Spring (in context) un singleton sau un prototype daca vrem in mod special;
+	-> daca nu am da @Component practic nu s-ar instantia nici un obiect in containerul de Spring;
+	-> containerul de Spring se creeaza in linia de cod cu  ClassPathXmlApplicationContext context =
+                new ClassPathXmlApplicationContext("carContext.xml");
+
+    -> cand faci getBean(Laptop.class) inseamna ca ii ceri containerului/contextului de Spring sa creeeze un singleton si sa ti l faca tie disponibil in aplicatie, practic iti INJECTEAZA dependinta creata in context in aplicatia ta;
+
+    @Resources - face acelasi lucru ca si @Inject doar ca se uita dupa:
+
+    1. Name
+    2. Type
+    3. Qualifier
+
+================================================================
+1.Overview:
+
+	@Resource  |---> apartin de Java extension package;
+	@Inject    |
+
+	@Autowired |---> apartin de Spring framework package;
+
+
+	-> aceste annotari ofera claselor un mod declarativ de a rezolva dependintele;
+
+			-imperative way to instantiate:
+				Dog dog1 = new Dog();
+			- declarative way:
+				@Autowired
+				Dog dog1;
+
+	-> toate 3 annotarile pot rezolva dependintele fie by field injection fie by setter injection;
+
+
+	De clarificat:
+
+	1. Spring Data
+
+	@Bean      - se pune pe metode;
+	@Autowired - cand se porneste aplicatia este creat contextul; in context daca doua beanuri sunt dependente unul de celalalt prin anumite fielduri, deasupra fieldurilor alora se va pune autowired pentru a lega beanurile intre ele;
+	@Component - se pune deasupra claselor pentru a fi recunoscute in contextul de Spring si pentru a se putea instantia beanuri din clasele respective;
+	@Repository - ?
+	@Service    - ?
+	@Controller - este un fel de interfata (de programare) prin care comunicam cu un server, facem put, post, get, etc;
+	@RestController - se pune deasupra clasei controller in care scriem metodele de get, post, delete, etc, metode prin intermediul carora comunicam cu un anumit server - spre ex Postman;
+
+	
+	2. Spring MVC
+
+	DTO = Data Transfer Object -> se face o clasa DTO pentru fiecare clasa din care instantiem obiecte pentru ca nu este ok sa returnam direct entitati pentru ca ele se pot modifica;
+
+	REST HTTP verbs = procedee prin care realizam o serie de actiuni in cadrul unui server;
+	GET = retrage iteme de la server;
+	POST = creeaza un nou item in server;
+	PUT = inlocuieste un element existent in server;
+	PATCH = face update la un element existent in server;
+	DELETE = sterge un element existent in server;
+
+	@RequestBody - ii spune springului ca variabila asta o sa vina prin request;
+
+Deserializare = cand se transforma din ce o fi intr un obiect de java;
+Serializare = cand se transforma intr un JSON pentru a putea fi inteles de alt sistem;
+
+
+	
+
+
+
+
+

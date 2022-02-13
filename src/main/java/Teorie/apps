@@ -1,0 +1,152 @@
+class MyClass { 
+  
+   private int a;  
+   public StringBuffer b; 
+     
+  public MyClass(int j) {
+            a = j; 
+            b = new StringBuffer(j); 
+   } 
+} 
+ 
+Main: 
+MyClass mc = new MyClass("hello"); 
+
+String abc = mc.b; 
+
+int def = mc.a;
+
+===============================================================================
+
+class Class1 { 
+    Class1() { 
+        System.out.println('Class1 constructor called'); 
+    } 
+} 
+  
+class Class2 extends Class1 { 
+    Class2() { 
+        System.out.println('Class2 constructor called'); 
+    } 
+} 
+  
+Main: 
+Class2 myNewClass = new Class2();
+
+===============================================================================
+
+class ClassA { 
+   public int a = 4; 
+   public static int b = 3; 
+} 
+ 
+class ClassB{ 
+    public String metoda(){ 
+        // afiseaza a din ClassA
+       // afiseaza b din ClassA 
+    } 
+} 
+
+===============================================================================
+Every number can be written like this x*2^y 
+x*2*2*2*2…
+Write a function that takes a number as input and returns the odd part of it (the x from the formula) 
+
+number = x * 2 *...
+x = number / 2 *...
+
+public static int function(int number) {
+int x = 0;
+x = number / 2;
+if (x % 2 != 0) {
+
+return x;
+}
+
+return function(x);
+
+}
+
+===============================================================================
+Write a function that takes an integers list and an integer n as input and rotates the first n numbers to left. For example,
+ for { 5, 3, 7, 9 ,2} and n=2 it would return { 7, 9, 2, 5, 3 }.
+
+===============================================================================
+
+Class (interfata) Task – method execute()
+3 classes – in each of the the execute method should have a different implementation
+OutTask -> will display a String
+RandomTask -> will display a random number
+IncrementTask -> will display the number of the instances of the class
+
+public interface Task {
+    void execute();
+
+    default void execute(String s) {
+        System.out.println("Only default methods can have body in interfaces!!" + s);
+    }
+
+    static void doSomething() {
+        System.out.println("Is doing something!!!");
+    }
+}
+
+public class RandomTask implements Task {
+    @Override
+    public void execute() {
+        System.out.println(Math.random());
+    }
+}
+
+public class OutTask implements Task{
+    @Override
+    public void execute() {
+        System.out.println("String is displayed");
+    }
+}
+
+public class IncrementTask implements Task {
+
+    private static int counter = 0;
+
+    @Override
+    public void execute() {
+        System.out.println(counter);
+    }
+
+    IncrementTask() {
+        counter++;
+    }
+}
+
+    public static void main(String[] args) {
+        OutTask outTask = new OutTask();
+        outTask.execute();
+
+        RandomTask randomTask = new RandomTask();
+        randomTask.execute();
+        randomTask.execute("asd!!!!");
+
+        IncrementTask incrementTask = new IncrementTask();
+        IncrementTask incrementTask_2 = new IncrementTask();
+        IncrementTask incrementTask_3 = new IncrementTask();
+        incrementTask.execute();
+    }
+
+===============================================================================
+
+- algoritm de cautare a duplicatelor intr-un array de int sau intr-un String
+
+================================================================================
+- sa se construiasca un sir de numere (ex: 1...100) fara a folosi while sau for:
+    public static void buildNumbersRecursively(int maxNumber) {
+        if (maxNumber == 0) {
+            System.out.println(maxNumber);
+            return;
+        }
+        buildNumbersRecursively(maxNumber - 1);
+        System.out.print(maxNumber + " ");
+    }
+
+================================================================================
+- de facut o metoda care sa returneze 100 dar fara a folosi vreun numar;
