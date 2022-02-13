@@ -416,53 +416,11 @@ public boolean binarySearch(int[] nums, int x) {
 	return false;
 }
 
-
-Failfast vs Failsafe
-cum e corect sa se instantieze o lista? cu interfata sau cu implementarea? - cu interfara pt ca asa avem acces la metodele interfetei si putem converti lista intr-un linked list spre exemplu;
-exemplu concret de singleton si de factory
-
-
-java este pass-by-value -> adica intr-o metoda daca punem la parametru un obiect inseamna ca ii punem valoarea adresei de memorie a acelui obuect - adica ii facem o copie la valoarea adresei de memoire a acelui abiect, si spunem ca obiectul respectiv pointeaza catre o copie a valorii adresei de memorie!!!!
-
-
-61) Is it possible for two unequal objects to have the same hashcode?
-Yes, two unequal objects can have same hashcode that's why collision happen in a hashmap.
-the equal hashcode contract only says that two equal objects must have the same hashcode it doesn't say anything about the unequal object.
-
-62) Can two equal object have the different hash code?
-No, thats not possible according to hash code contract.
-
-65) Why you need to override hashcode, when you override equals in Java? (answer)
- Because equals have code contract mandates to override equals and hashcode together .since many container class like HashMap or HashSet depends on hashcode and equals contract.
-
- 121) Difference between Composition, Aggregation and Association in OOP? (answer)
-If two objects are related to each other, they are said to be associated with each other. Composition and Aggregation are two forms of association in object-oriented programming. The composition is stronger association than Aggregation. In Composition, one object is OWNER of another object while in Aggregation one object is just USER of another object. If an object A is composed of object B then B doesn't exist if A ceased to exists, but if object A is just an aggregation of object B then B can exists even if A ceased to exist.
-
-Does Java "pass-by-reference" or "pass-by-value" when passing arguments to methods?
-
-It seems like a simple question (it is), but many people get it wrong by saying:
-
-Objects are passed by reference and primitive types are passed by value.
-
-A correct statement would be:
-
-Object references are passed by value, as are primitive types. Thus, Java passes by value, not by reference, in all cases.
-
-
-he main difference between Composition and Inheritance in Java is that Composition allows reuse of code without extending it but for Inheritance, you must extend the class for any reuse of code or functionality.
-
-!!!de cautat exemplu concret in proiect unde am suprascris equals and hashcode
-
-Now back to primary questions “What is Enum in java” simple answer Enum is a keyword in java and in more detail term Java Enum is a type like class and interface and can be used to define a set of Enum constants.
-
-Enum constants are implicitly static and final and you can not change their value once created. Enum in Java provides type-safety and can be used inside switch statements like int variables.
-
-
-Generic in Java is added to provide compile-time type-safety of code and removing the risk of ClassCastException at runtime which was a quite frequent error in Java code, for those who doesn’t know what is type-safety at compile-time, it’s just a check by the compiler that correct Type is used in the correct place and there should not be any ClassCastException.
-
-Remember Generics in java are introduced to enforce type-safety especially on collection classes of java which holds the type of Object e.g. ArrayList, HashMap.
+================================================================================================================================================
 
 JDK 1.5 (adica JAVA 5) -> Java Enum, Generics, autoboxing, unboxing and varargs
+
+================================================================================================================================================
 
 Stages of running a java app:
 1.se creaza fisierul .java in care se scriu instructiunile programului;
@@ -474,18 +432,116 @@ JDK - bundle care inglobeaaza JRE (care inglobeaza JVM)
 JRE - creaza o instanta a JVM-ului care executa codul (Java Runtime);
 JVM - este o aplicatie care proceseaza fisierele .class si returneaza un output(Java Virtual Machine)
 
+================================================================================================================================================
 
+Avntaje SpringBoot (fata de Spring MVC):
+- acces mai facil la dependinte;
+- embedded servlet container = Tomcat server; 
 
+Exemple de design patterns folosite in proiecte:
+SessionFactory - Factory design pattern;
+open db session - Singleton - nu este nevoie sa instantiem de fiecare data conexiunea la baza de date;
 
+- pentru o singura db se va instantia o singura SessionFactory
+- pentru mai multe conexiuni la db este necesara instantierea a mai multor SessionFactorys;
 
+- Hibernate extinde JPA (care e furnizata de ORACLE)
+- persistance context - cand se deschide o sesiune se aloca o zona de memorie in care se stocheaza toate starile unui anumit obiect si in plus mai exista si un obiect care asigura conectarea la baza de date;
 
+- transient = stare in care se afla un obiect nou creat dar care nu este inca managed de persistance context (adica care inca nu a fost salvat in db); Ex: Object o = new Object(); 
+- persistent = stare in care se afla un obiect care a fost manage uit de persistance context - adica care a fost salvat spre ex. session.save(o);
+- detached = stare in care este un obiect atunci cand se inchide sesiunea;
+- HikaryPool - este un connection pool folosit by default de catre spring boot;
 
+================================================================================================================================================
 
+Anotari in Spring:
+@Component - aceasta anotare se regaseste pe clasele care ar trebui tratate de Spring ca si Bean-uri;
 
+@Autowired - este folosit pentru a identifica si a injecta un tip de Bean;
 
+Dependency Injection = este un design pattern - practic se refera la faptul ca instantierea unui obiect se face prin "injectarea" obiectului respectiv, fara a mai folosi keywordul "new";
 
+IOC = Spring framework se ocupa de instantierea obiectelor;
 
+@SpringBootApplication = contine instructiunile de initializare a aplicatiei de spring boot - nitializeaza contextul de spring;
 
+@EnableAutoConfiguration = Spring Boot looks for auto-configuration beans on its classpath and automatically applies them 
 
+@Bean = annotations are used at the method level and indicate that a method produces a bean that is to be managed by Spring container
 
+@Service = It is used at the class level. It shows that the annotated class is a service class, such as business basic logic, and call external APIs
 
+@Repository = It is a Data Access Object (DAO) that accesses the database directly. It indicates that the annotated class is a repository. 
+
+@Configuration = It is used as a source of bean definitions. It is a class-level annotation.
+
+@Controller = The annotation is used to indicate that the class is a web request handler. It is often used to present web pages. It is most commonly used with @RequestMapping annotation. 
+
+@RequestMapping = is used to map the HTTP request. It is used with the class as well as the method. It has many other optional elements like consumes, name, method, request, path, etc.
+
+================================================================================================================================================
+
+HASH TABLE internals:
+
+- pentru a folosi hashTable cu obiecte custom ca si key aceste obiecte trebuie sa fie IMUTABILE = sa nu mai poata fi modificate dupa initializare
+acest lucru realizandu-se prin :
+		- clasa din care se instantiaza onbiectele trebuie sa fie finala (sa nu mai poata fi extinsa de alte clase copil)
+		- filedurile acelei clase si metodele trebuie sa fie finale (fieldurile constante, iar metodele sa nu mai poata fi suprascrise)
+		- sa nu existe setteri;
+		- daca exista referinte catre alte obiecte si acele obiecte trebuie sa fie imutabile;
+
+- o alta conditie mandatory este sa se respecte contractul equals-hashCode = in clasa din care se va instantia obiectul este obligatoriu sa se suprascrie metodele equals() si hashCode() din clasa Object. 
+
+Ex: daca instantiem doua obiecte Client care au aceeasi proprietati putem avea urmatoarele situatii:
+	1. daca nu avem suprascrise equals() si hashCode() -> se vor introduce in map doua intrari desi este acelasi obiect;
+	2. daca avem suprascris equals() dar nu avem suprascris si hashCode() - se vor introduce in map doua intrari desi este acelasi obiect;
+	3. daca avem suprascris doar hashCode() - se vor introduce in map doua obiecte desi hashCode-ul este acelasi;
+	4. daca avem suprascrise atat equals() cat si hashCode() - se va introduce in map un singur element in cazul in care elementele sunt egale;
+
+Contract equals-hashCode = spunem ca doua obiecte sunt egale cu equals() daca ambele obiecte au acelasi hashCode -> metoda de hasCode() va returna mereu acelasi hashCode pentru acelasi input - daca se modifica cat de putin inputul metoda va returna un hashCode diferit;
+
+- daca nu sunt imutabile in momentul in care modificam obiectul care este deja in map si incercam sa il extragem vom obtine NULL - pentru ca in momentul in care facem map.get(key) se recalculeaza hash-ul, se regenereaza indexul se duce pe index catre bucket-ul din hashtable si se uita la hashcode, daca este egal se uita la valoare cu equals -> intrucat valoarea nu mai este egala cu valoarea care s-a mapat initial => NULL;
+
+Este posibil sa avem doua obiecte diferite dar care au acelasi hashCode?
+R: Da, aceasta este cauza coliziunilor din hashTables;
+
+Este posibil ca doua obiecte egale sa aiba hashCode diferit?
+R: Nu, acest lucru incalca contractul equals-hashCode;
+
+De ce este nevoie sa suprascrii si hashCode daca suprascrii equals in Java?
+R: Este necesar intrucat structurile de date de tip hashTable depind de contractul equals-hashCode;
+
+================================================================================================================================================
+
+java este pass-by-value -> adica intr-o metoda daca punem la parametru un obiect inseamna ca ii punem valoarea adresei de memorie a acelui obuect - adica ii facem o copie la valoarea adresei de memoire a acelui abiect, si spunem ca obiectul respectiv pointeaza catre o copie a valorii adresei de memorie!!!!
+
+Does Java "pass-by-reference" or "pass-by-value" when passing arguments to methods?
+It seems like a simple question (it is), but many people get it wrong by saying:
+Objects are passed by reference and primitive types are passed by value.
+A correct statement would be:
+Object references are passed by value, as are primitive types. Thus, Java passes by value, not by reference, in all cases.
+
+================================================================================================================================================
+
+Difference between Composition, Aggregation and Association in OOP?
+If two objects are related to each other, they are said to be associated with each other. Composition and Aggregation are two forms of association in object-oriented programming. The composition is stronger association than Aggregation. In Composition, one object is OWNER of another object while in Aggregation one object is just USER of another object. If an object A is composed of object B then B doesn't exist if A ceased to exists, but if object A is just an aggregation of object B then B can exists even if A ceased to exist.
+
+================================================================================================================================================
+
+Difference between Composition and Inheritance:
+The main difference between Composition and Inheritance in Java is that Composition allows reuse of code without extending it but for Inheritance, you must extend the class for any reuse of code or functionality.
+
+================================================================================================================================================
+
+Now back to primary questions “What is Enum in java” simple answer Enum is a keyword in java and in more detail term Java Enum is a type like class and interface and can be used to define a set of Enum constants. 
+
+Enum constants are implicitly static and final and you can not change their value once created. Enum in Java provides type-safety and can be used inside switch statements like int variables. 
+
+================================================================================================================================================
+
+Generic in Java is added to provide compile-time type-safety of code and removing the risk of ClassCastException at runtime which was a quite frequent error in Java code, for those who doesn’t know what is type-safety at compile-time, it’s just a check by the compiler that correct Type is used in the correct place and there should not be any ClassCastException.
+
+================================================================================================================================================
+
+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

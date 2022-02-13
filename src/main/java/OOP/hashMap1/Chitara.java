@@ -22,8 +22,8 @@ public class Chitara {
                 Objects.equals(nume, chitara.nume);
     }
 
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(marca, nume);
-//    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(marca, nume);
+    }
 }

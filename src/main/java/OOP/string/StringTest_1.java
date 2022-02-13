@@ -48,5 +48,8 @@ public class StringTest_1 {
         System.out.println(bd);
         System.out.println(bd2);
 
+        StringBuffer sb;
+        StringBuilder sbb;
+
     }
 }
