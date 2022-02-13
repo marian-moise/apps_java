@@ -3,7 +3,7 @@ package OOP.string;
 import java.math.BigDecimal;
 import java.util.*;
 
-public class StringTest {
+public class StringTest_1 {
     public static void main(String[] args) {
         String s1 = "test";
         String s2 = "test";
