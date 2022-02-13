@@ -417,8 +417,62 @@ public boolean binarySearch(int[] nums, int x) {
 }
 
 
+Failfast vs Failsafe
+cum e corect sa se instantieze o lista? cu interfata sau cu implementarea? - cu interfara pt ca asa avem acces la metodele interfetei si putem converti lista intr-un linked list spre exemplu;
+exemplu concret de singleton si de factory
 
 
+java este pass-by-value -> adica intr-o metoda daca punem la parametru un obiect inseamna ca ii punem valoarea adresei de memorie a acelui obuect - adica ii facem o copie la valoarea adresei de memoire a acelui abiect, si spunem ca obiectul respectiv pointeaza catre o copie a valorii adresei de memorie!!!!
+
+
+61) Is it possible for two unequal objects to have the same hashcode?
+Yes, two unequal objects can have same hashcode that's why collision happen in a hashmap.
+the equal hashcode contract only says that two equal objects must have the same hashcode it doesn't say anything about the unequal object.
+
+62) Can two equal object have the different hash code?
+No, thats not possible according to hash code contract.
+
+65) Why you need to override hashcode, when you override equals in Java? (answer)
+ Because equals have code contract mandates to override equals and hashcode together .since many container class like HashMap or HashSet depends on hashcode and equals contract.
+
+ 121) Difference between Composition, Aggregation and Association in OOP? (answer)
+If two objects are related to each other, they are said to be associated with each other. Composition and Aggregation are two forms of association in object-oriented programming. The composition is stronger association than Aggregation. In Composition, one object is OWNER of another object while in Aggregation one object is just USER of another object. If an object A is composed of object B then B doesn't exist if A ceased to exists, but if object A is just an aggregation of object B then B can exists even if A ceased to exist.
+
+Does Java "pass-by-reference" or "pass-by-value" when passing arguments to methods?
+
+It seems like a simple question (it is), but many people get it wrong by saying:
+
+Objects are passed by reference and primitive types are passed by value.
+
+A correct statement would be:
+
+Object references are passed by value, as are primitive types. Thus, Java passes by value, not by reference, in all cases.
+
+
+he main difference between Composition and Inheritance in Java is that Composition allows reuse of code without extending it but for Inheritance, you must extend the class for any reuse of code or functionality.
+
+!!!de cautat exemplu concret in proiect unde am suprascris equals and hashcode
+
+Now back to primary questions “What is Enum in java” simple answer Enum is a keyword in java and in more detail term Java Enum is a type like class and interface and can be used to define a set of Enum constants.
+
+Enum constants are implicitly static and final and you can not change their value once created. Enum in Java provides type-safety and can be used inside switch statements like int variables.
+
+
+Generic in Java is added to provide compile-time type-safety of code and removing the risk of ClassCastException at runtime which was a quite frequent error in Java code, for those who doesn’t know what is type-safety at compile-time, it’s just a check by the compiler that correct Type is used in the correct place and there should not be any ClassCastException.
+
+Remember Generics in java are introduced to enforce type-safety especially on collection classes of java which holds the type of Object e.g. ArrayList, HashMap.
+
+JDK 1.5 (adica JAVA 5) -> Java Enum, Generics, autoboxing, unboxing and varargs
+
+Stages of running a java app:
+1.se creaza fisierul .java in care se scriu instructiunile programului;
+2.javac HelloWorld.class -> se compileaza fisierul .java -> prin invocarea compilatorului de java se va compila fisierul.java, adica se va transforma intr-un fisier .class care contine bytecode-ul fisierului anterior;
+3.java HelloWorld -> se ruleaza programul de catre JVM -> intervine interpretatorul din JVM care interpreteaza bytecode-ul din fisierul .class - pentru a putea fi executat de JVM;
+4. se afiseaza outpul-ul;
+
+JDK - bundle care inglobeaaza JRE (care inglobeaza JVM)
+JRE - creaza o instanta a JVM-ului care executa codul (Java Runtime);
+JVM - este o aplicatie care proceseaza fisierele .class si returneaza un output(Java Virtual Machine)
 
 
 

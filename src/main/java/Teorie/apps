@@ -48,24 +48,25 @@ class ClassB{
 } 
 
 ===============================================================================
-Every number can be written like this x*2^y 
-x*2*2*2*2…
+Every number can be written like this x*2^y ---> x*2*2*2*2…
 Write a function that takes a number as input and returns the odd part of it (the x from the formula) 
 
 number = x * 2 *...
 x = number / 2 *...
 
-public static int function(int number) {
-int x = 0;
-x = number / 2;
-if (x % 2 != 0) {
+   private static int returnOddNumberIterative(int num) {
+        while (num % 2 == 0) {
+            num = num / 2;
+        }
+        return num;
+    }
 
-return x;
-}
-
-return function(x);
-
-}
+    private static int returnOddNumberRecursive(int num) {
+        if (num % 2 != 0) {
+            return num;
+        }
+        return returnOddNumberRecursive(num / 2);
+    }
 
 ===============================================================================
 Write a function that takes an integers list and an integer n as input and rotates the first n numbers to left. For example,
