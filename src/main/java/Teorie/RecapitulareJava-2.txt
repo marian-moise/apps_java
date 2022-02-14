@@ -239,6 +239,7 @@ INTERFATA = este in principiu tot o clasa dar cu urmatoarele caracteristici:
 				- pot sa extinda mai multe interfete;
 				- nu pot sa implementeze alte interfete;
 				- metodele trebuiesc suprascrise in clasele copil;
+				- exemplu de interfata din java - Serialisable, Runnable;
 
 CLASA ABSTRACTA = o clasa cu urmatoarele caracteristici:
 				- variabile statice si finale;
@@ -249,6 +250,7 @@ CLASA ABSTRACTA = o clasa cu urmatoarele caracteristici:
 				- pot sa implementeze mai multe interfete;
 				- poate fi invocata dar nu poate fi instantiata;
 			    - metodele trebuiesc suprascrise in clasele copil;
+			    - exemplu de clasa abstracta din java - AbstractStringBuilder (care este extinsa de String Builder), AbstractSet, AbstractMAp, AbstractCollection, AbstractList, AbstractQueue, etc;
 
 - diferenta dintre clasa abstracta si interfata 
 			= o clasa poate implementa mai multe interfete dar nu poate extinde decat o singura clasa parinte;
@@ -545,3 +547,12 @@ Generic in Java is added to provide compile-time type-safety of code and removin
 ================================================================================================================================================
 
 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
+
+================================================================================================================================================
+<><><><>CAPACITATI INITIALE PENTRU STR DE DATE IMPLEMENTATE IN JAVA<><><><>
+StringBuilder && StringBuffer -> 16
+HashMap && HashSet -> 16
+PriorityQueue -> 11 (extends AbstractQueue)
+ArrayList && Stack -> 10
+LinkedLists -> nu mentin capacitate initiala -> 0
+================================================================================================================================================
