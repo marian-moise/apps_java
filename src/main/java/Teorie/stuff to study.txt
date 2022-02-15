@@ -1,8 +1,3 @@
-- design patterns: singleton, factory;
-- interfaces, abstract classes;
-- dependency injection;
-- inversion control;
-
 ******************************************************DEPENDENCY INJECTION******************************************************************
 * DEPENDENCY INJECTION = The act of connecting objects with other objects, or “injecting” objects into other objects, is done by an assembler rather than by the objects themselves.
 
@@ -93,7 +88,7 @@ abstracta => - contine variabile pe care le putem modifica;
 			 - nu poate fi instantiata;	
 
 
-POLIMORFIDM = abilitatea unui obiect de a lua mai mukte forme;
+POLIMORFISM = abilitatea unui obiect de a lua mai mukte forme;
 = o clasa se poate comporta ca mai multe clase;
 => orice obiect Java care se poate transmite de mai multe ori ca un ESTE-UN/O este considerat polimorfic;		 
   		     

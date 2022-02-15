@@ -1,25 +1,5 @@
-<!-- singletonm implementare: -->
-<!-- diferenta intre singleton si cl;asa statica -->
-<!-- hibernate - eager lazy  -->
-<!-- problema cu string si caractere cu vocale - normal si cu streaams - de scos vocale dintr un string sau de scos caraxctere -->
-<!-- sql - arbore binar -->
-<!-- sql : PK si FK5 -->
-<!-- normalizare DB -->
-<!-- java: in ce versiune a aparut nu stiu ce functie - cultura generala + ordonarea in ordinea aparitiei PE versiuni de java au aparut anumite functii -->
-<!-- streams: imbunatatesc performanta sau nu -->
-<!-- erori si exceptii ierarhie -->
-<!-- checked si uncheked -->
-<!-- ce e runnable? -->
-<!-- care str de date nu mosteneste collection -->
-<!-- interfete functionale - diferenta dintre interfete si interfete functionale - functii lambda pe int functionala -->
-<!-- diff string builder si string buffer -->
-<!-- ce e callable? -->
-<!-- threads - cum faci stream sa ruleze pe thread - functie; -->
-<!-- probleme daca returneaza codu -->
-<!-- polimorfism, genericitate, m,ostenire, etc; -->
-<!-- algoritmi - vezi hackerrank -->
 
-======================================================================<><><>IMPLEMENTARE SINGLETON<><><>===========================================================
+=================================<><><>IMPLEMENTARE SINGLETON<><><>===========================================================
 - variabila privata de clasa (statica);
 - constructor privat;
 - o metoda statica publica pentru a obtine o singura instanta;
@@ -67,16 +47,16 @@ public enum EnumSingleton {
 use: EnumSingleton enumSingleton = EnumSingleton.INSTANCE.getInstance();
 
 - varinata cu enum are serializare si thread-safety garantate chiar prin implementarea enumului;
-- serializare - procesul de a converti un obiect in byte streaml
+- serializare - procesul de a converti un obiect in byte stream;
 - deserializare - procesul de a converti un byte stream in obiect;
-- acest mecanism de serializare este foplosit in stocarea obiectelor in baza de date - in persistarea obiectelor;
+- acest mecanism de serializare este folosit in stocarea obiectelor in baza de date - in persistarea obiectelor;
 - pentru a face un obiect serializabil trebuie sa implementam  java.io.Serializable;
-- avantaje serilaizare - de a transporta un obiect in cadrul unei retele;
+- avantaje serializare - de a transporta un obiect in cadrul unei retele;
 - diferenta dintre singleton si clasa statica - clasa statica nu poate fi extinsa; greu de testat;
 
-=======================================================================================================================================================================
+=========================================================================================================================================
 
-======================================================================<><><>HIBERNATE - EAGER / LAZY LOADING<><><>=====================================================
+========================================<><><>HIBERNATE - EAGER / LAZY LOADING<><><>=====================================================
 - eager loading = design pattern in care initializarea se face pe loc;
 - lazy loading  = design pattern in care initializarea este intarziata pe cat de mult posibil;
 
@@ -98,9 +78,9 @@ Advantages:
 Disadvantages:
     - Long initial loading time
     - Loading too much unnecessary data might impact performance
-=======================================================================================================================================================================
+==========================================================================================================================================
 
-======================================================================<><><>EXTRACT CHARACTERS FROM STRING<><><>=====================================================
+===========================================<><><>EXTRACT CHARACTERS FROM STRING<><><>=====================================================
 <>varianta bruta:
 class Main {
     public static void main(String[] args) {
@@ -129,9 +109,10 @@ class Main {
          return string.chars().filter(ch -> ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o'
                 || ch == 'u').count();
     }
-=======================================================================================================================================================================
+============================================================================================================================================
 
-======================================================================<><><>SQL<><><>==================================================================================
+===========================================<><><>SQL<><><>==================================================================================
+
 lob = large object type = tip de data in sql care poate stoca cantitati mari de date - se folosesc la stocarea fisierelor;
 blob = tip de data in sql care socheaza bytecode streams (streams = secvente de date);
 clob = tip de data in sql care stocheaza character streams;
@@ -140,16 +121,7 @@ bytecode = in momentul in care programul java e compilat este generat bytecodul 
 -> cod sursa -> compliler -> bytecode -> JVM -> machine code;
 -> bytecode-ul este non-runnable si necesita un interpretator - aici intervine JVM-ul;
 
-streams: imbunatatesc performanta sau nu
-erori si exceptii ierarhie si cu se se mananca
-checked si uncheked
-
-1. BINARY TREES:
-- binary trees in sql:
-    - nested set solution
-    - binary heap solution
-
-binary tree = structura de date in care acestea sunt aranjate ierahic sub forma de parinti si copii;
+1.binary tree = structura de date in care acestea sunt aranjate ierahic sub forma de parinti si copii;
 - poate avea 0, 1 sau maxim 2 copii;                               
 - logaritm = puterea la care trebuie ridicata baza pentru a produce numarul x
 - cautarea este Ologn ;
@@ -159,7 +131,7 @@ binary tree = structura de date in care acestea sunt aranjate ierahic sub forma 
 - FK este referinta catre PK din tabela principala
 
 3. NORMALIZARE DB = este un proces de optimizare prin care se incearca minimizarea redundantei datelor si a anomaliilor de introducere, actualizare si stergere;
-= este un proces prin care datele sunt grupate intr-un tabel, iar orice alte date atributive sau conexe indirect sunt plasate in diferite tabele, tabele conectate printr-o retea logica intre ele; 
+= este un proces prin care datele sunt grupate intr-un tabel, iar orice alte date atributive sau conexe indirect sunt plasate in diferite tabele, (tabele conectate printr-o retea logica intre ele); 
 
 - avantaje:
     - creste consistenta datelor - este evitata astfel duplicarea datelor pentru ca ele sunt stocate intr-un singur loc;
@@ -219,9 +191,9 @@ binary tree = structura de date in care acestea sunt aranjate ierahic sub forma 
     - Boyce-Codd - daca este deja in a treia forma normala si pentru fiecare dependenta functionala intre A si B, A ar trebui sa fie o supercheie;
     - 4NF - daca nu are doua sau mai multe date independente care descriu entitatea relevanta;
     - 5NF - daca este in 4NF si poate fi impartit in mai multe tabele fara pierderea datelor; 
-=======================================================================================================================================================================
+==============================================================================================================================================
 
-======================================================================<><><>JAVA VERSIONS WITH FEATURES<><><>==========================================================
+=============================================<><><>JAVA VERSIONS WITH FEATURES<><><>==========================================================
 - java 8:
 Lambda expression support in APIs
 Stream API
@@ -229,10 +201,9 @@ Functional interface and default methods
 Optionals
 
 - java 17 - cea mai recenta versiune de java
-=======================================================================================================================================================================
+==============================================================================================================================================
 
-
-======================================================================<><><>JAVA STREAMS<><><>=========================================================================
+=============================================<><><>JAVA STREAMS<><><>=========================================================================
 - Streams provide scope for future efficiency gains. Some people have benchmarked and found that single-threaded streams from in-memory Lists or arrays can be slower 
 than the equivalent loop. This is plausible because there are more objects and overheads in play.
 - Streams encourage less mutability. This is sort of related to the functional programming aspect -- the kind of programs you write using streams tend to be the kind 
@@ -253,10 +224,10 @@ Debuggers are improving, but even now, when you're stepping through stream code 
 very close to the variables and code locations that a traditional debugger works with.
 
 
-=======================================================================================================================================================================
+===============================================================================================================================================
 
 
-======================================================================<><><>FUNCTIONAL INTERFACES<><><>================================================================
+==============================================<><><>FUNCTIONAL INTERFACES<><><>================================================================
 = sunt interfete cu o singura metoda abstracta, dar care pot avea mai multe metode default;
 
 Runnable –> This interface only contains the run() method.
@@ -264,5 +235,4 @@ Comparable –> This interface only contains the compareTo() method.
 ActionListener –> This interface only contains the actionPerformed() method.
 Callable –> This interface only contains the call() method.
 
-
-=======================================================================================================================================================================
+================================================================================================================================================

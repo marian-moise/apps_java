@@ -1,18 +1,18 @@
 <RECAPITULARE:>
 
 ==================================
-1.OOP:
-- Encapsulation
+1.PRINCIPII OOP:
+- Encapsulation - se face prin limitarea accesului la starile si comportamentele unei clase prin introducerea de modificatori de acces si de getters/setters
 - Inheritance 
-- Composition
-- Concurency
-- Abstract Classes
-- Interfaces
-- Exceptions
-- Generic Types
-- Collections
-- Annotations
-- Input/Output
+	- Association:
+		- Agregation - cand obiectele pot functiona independent - Ex: "Sofer -> Masina";
+		- Composition - cand obiectele nu pot functiona independent - Ex: "Masina -> Motor";
+- Abstraction
+		- Abstract Classes
+		- Interfaces
+- Polimirfism - proprietate care sugereaza diferite tipuri de comportament - obiecte, metode
+		- static;
+		- dinamic;
 ==================================
 2.DESIGN PATTERNS:
 - Singleton
@@ -59,12 +59,12 @@ CONCEPTE:
 - Polimorfism
 
 **Structuri de date:
-- str de date primitive: Integer, Float, Number, etc;
-- str de date complexe: Array, Tree, Graph, Stack, Queue, LinkedList;
+- primitive: Integer, Long, Float, Double; Character, Boolean, Short, Byte;
+- complexe: Array, Tree, Graph, Stack, Queue, LinkedList;
 
-**Date:
-- primitive: int, char, boolean, etc;
-- complexe: Integer, Character, Boolean, etc;
+**Tipuri de Date:
+- primitive: int, long, float, double, char, boolean, short, byte
+- complexe: Integer, Long, Float, Double; Character, Boolean, Short, Byte
 
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
@@ -144,7 +144,7 @@ CONCEPTE:
 - composition - face referire la elemente care sunt in stransa legatura unele cu altele - ex constructorii claselor;
 - agregation - face referire la elemente care sunt complet independente unele de altele - ex Angajat , Adresa - > clase independente;
 - clasa - este un  blueprint care poate crea obiecte atat timp cat nu este abstracta;
-		- o clasa de Java este un fisier ce contine byteCode Java care poate fi executat in JVM - este un fisier produs de compilatorul de Java;
+		- o clasa de Java este un fisier ce contine byteCode Java care poate fi executat in JVM;
 - obiect - este o instanta a unei clase; este un produs al acelei clase;
 - metoda - este o functie care face ceva, afiseaza, numara, sorteaza, etc;
 - scope - se refera la vizibilitatea unui element in cadrul unui bloc de cod sau in cadrul unei clase;
@@ -160,7 +160,8 @@ CONCEPTE:
 - HTML - Hiper Text Markup Language
 - OOP - Object Oriented Programming
 - CSS - Cascade Style Sheets
-- FileReader, BufferReader, Tokenizare - FileReader este o clasa ce permite instantierea unui obiect care poate citi bytecodeul dintr-un fisier
+- FileReader, BufferReader, Tokenizare :
+	 - FileReader este o clasa ce permite instantierea unui obiect care poate citi bytecodeul dintr-un fisier
 	 - BufferReaderul este deasemenea o clasa care poate instantia un obiect care poate interpreta bytecode ul;
 	 - Tokenizarea este un proces prin care se fragmenteaza anumite elemente - cand vrei sa separi doua cuvinte dupa ",";
 - entry - este un ansamblu format din cheie + valoare;
@@ -206,7 +207,6 @@ CONCEPTE:
 		- pe variabile - creeaza variabile constante
 		- pe metode - impiedica suprascrierea metodei;
 		- pe clase - impiedica mostenirea acelei clase de alte clase;
-		- trebuie sa fie initializate alfel se arunca compile-time-error - se initializeaza in constructori sau in blocuri statice;
 
 - declarare = alaturare de nume de variabila si tip de obiect (Ex: Rectangle rectangle); sau alaturare de nume de variabila si tip de data(Ex int counter);
 - instantiere = se face prin folosirea keywordului "new" (Ex: Rectangle rectangle = new Rectangle()) - care creeaza obiectul;
@@ -233,6 +233,7 @@ CONCEPTE:
 <><><><><><><><><><><><><><><><><><>CLASE vs INTERFETE<><><><><><><><><><><><><><><><><><>
 INTERFATA = este in principiu tot o clasa dar cu urmatoarele caracteristici:
 				- variabile statice si finale;
+				- nu accespta decat modificatori de acces publici - eroare de compilare daca nu sunt publici;
 				- metode statice abstracte dar si statice cu implementare;
 				- doar metode publice abstracte (fara implementare) si default(cu implementare dar care nu e obligatoriu sa fie suprascrise in clasele copil);
 				- fara constructori - nu poate fi instantiata;
@@ -242,7 +243,7 @@ INTERFATA = este in principiu tot o clasa dar cu urmatoarele caracteristici:
 
 CLASA ABSTRACTA = o clasa cu urmatoarele caracteristici:
 				- variabile statice si finale;
-				- metode statice abstracte dar si cu implementare;
+				- metode statice abstracte dar si statice cu implementare;
 				- are modificatori de acces;
 				- are constrcutori default si parametrizati;
 				- pot sa extinda o singura alta clasa parinte;
@@ -269,10 +270,9 @@ CLASA ABSTRACTA = o clasa cu urmatoarele caracteristici:
 			= ambele pot furniza implementare de metode statice;
 = o interfata poate sa extinda o singura clasa abstracta (ex interface List extends Collection);
 = o clasa abstracta poate sa extinda o clasa abstracta si sa implementeze in acelasi timp o interfata;
-= in java Map nu face parte din Collection;
+= in java HashMap nu face parte din Collection ci din Map;
 
-
-======================================================================<POLIMORFISM>=============================================================================											   
+===========================================================<POLIMORFISM>=============================================================================											   
 - Polimorfismul se poate realiza atat cu clase abstracte cat si cu interfete;
 
 - Exemplu POLIMORFISM : se creaza o interfata LimbiStraine; LimbiStraine are o metoda "vorbeste()"; Putem crea o clasa "Astronaut" care sa implementeze interfata LimbiStraine, facandu-se override la metoda vorbeste() pentru a returna "Vorbeste limba franceza". Se mai poate crea deasemenea o alta clasa "Inginer" care sa implementeze interfata LimbiStraine iar metoda vorbeste() sa se suprascrie si sa aiba returnul "Vorbeste limba germana".
@@ -486,7 +486,7 @@ HASH TABLE internals:
 
 - pentru a folosi hashTable cu obiecte custom ca si key aceste obiecte trebuie sa fie IMUTABILE = sa nu mai poata fi modificate dupa initializare
 acest lucru realizandu-se prin :
-		- clasa din care se instantiaza onbiectele trebuie sa fie finala (sa nu mai poata fi extinsa de alte clase copil)
+		- clasa din care se instantiaza obiectele trebuie sa fie finala (sa nu mai poata fi extinsa de alte clase copil)
 		- filedurile acelei clase si metodele trebuie sa fie finale (fieldurile constante, iar metodele sa nu mai poata fi suprascrise)
 		- sa nu existe setteri;
 		- daca exista referinte catre alte obiecte si acele obiecte trebuie sa fie imutabile;
