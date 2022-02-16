@@ -2,7 +2,7 @@
 
 ==================================
 1.PRINCIPII OOP:
-- Encapsulation - se face prin limitarea accesului la starile si comportamentele unei clase prin introducerea de modificatori de acces si de getters/setters
+- Encapsulation - se face prin limitarea accesului la proprietatile si comportamentele unei clase prin introducerea de modificatori de acces si de getters/setters
 - Inheritance 
 	- Association:
 		- Agregation - cand obiectele pot functiona independent - Ex: "Sofer -> Masina";
@@ -64,7 +64,7 @@ CONCEPTE:
 
 **Tipuri de Date:
 - primitive: int, long, float, double, char, boolean, short, byte
-- complexe: Integer, Long, Float, Double; Character, Boolean, Short, Byte
+- complexe: Integer, Long, Float, Double, Character, Boolean, Short, Byte
 
 <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
@@ -109,7 +109,7 @@ CONCEPTE:
 	  3.Errors (UNCHECKED): ex: JVM errors;
 
 	- avantaje:
-		- propagarea exceptiilor in sus pe callstack;
+		- propagarea exceptiilor se face de sus in jos pe stack de la metoda care a aruncat exceptia pana la metoda main in caz ca nu exista vreun catch care sa trateze exceptia;
 		- o buna grupare si diferentiere a tipurilor de erori;
 		- o buna separare a error-handling code-ului de codul normal; 
 
@@ -143,7 +143,7 @@ CONCEPTE:
 - mostenirea = proprietatea de a mosteni comportamentul claselor parinte prin implementarea de metode; pot mosteni si parametri din clasa parinte;
 - composition - face referire la elemente care sunt in stransa legatura unele cu altele - ex constructorii claselor;
 - agregation - face referire la elemente care sunt complet independente unele de altele - ex Angajat , Adresa - > clase independente;
-- clasa - este un  blueprint care poate crea obiecte atat timp cat nu este abstracta;
+- clasa - este un blueprint care poate crea obiecte atat timp cat nu este abstracta;
 		- o clasa de Java este un fisier ce contine byteCode Java care poate fi executat in JVM;
 - obiect - este o instanta a unei clase; este un produs al acelei clase;
 - metoda - este o functie care face ceva, afiseaza, numara, sorteaza, etc;
@@ -196,7 +196,6 @@ CONCEPTE:
 - memoization - cache-uire
 - hashtable - este o str de date - in java este hash map - care stocheaza elementele in functie de o anumita cheie;
 - imutabilitate - incapacitatea unui element de a-si modifica forma o data creat - spre ex Stringurile;
-							= un obiect este imutabil daca nu ii mai putem modifica informatiile dar ii putem modifica referinta catre un alt obiect;
 							-> ex: instantele claselor String si Integer;
 - dependency injection = nu presupune folosirea keywordului "new";
 - Inversion Of Control = Springul este responsabil cu instantierea obiectelor;
@@ -387,7 +386,7 @@ public void selectSort(int[] nums) {
 - cautare liniara - O(n);
 
 public boolean liniarSearch(int[] nums, int x) {
-	for(int i = 0; i <= nums.length; i++) {
+	for(int i = 0; i < nums.length; i++) {
 		if (nums[i] == x) {
 		 return true;
 		}
@@ -431,6 +430,14 @@ Stages of running a java app:
 JDK - bundle care inglobeaaza JRE (care inglobeaza JVM)
 JRE - creaza o instanta a JVM-ului care executa codul (Java Runtime);
 JVM - este o aplicatie care proceseaza fisierele .class si returneaza un output(Java Virtual Machine)
+
+6. Tell us something about JIT compiler.
+JIT stands for Just-In-Time and it is used for improving the performance during run time. It does the task of compiling parts of byte code having similar functionality at the same time thereby reducing the amount of compilation time for the code to run.
+The compiler is nothing but a translator of source code to machine-executable code. But what is special about the JIT compiler? Let us see how it works:
+- First, the Java source code (.java) conversion to byte code (.class) occurs with the help of the javac compiler.
+- Then, the .class files are loaded at run time by JVM and with the help of an interpreter, these are converted to machine understandable code.
+JIT compiler is a part of JVM. When the JIT compiler is enabled, the JVM analyzes the method calls in the .class files and compiles them to get more efficient and native code. It also ensures that the prioritized method calls are optimized.
+Once the above step is done, the JVM executes the optimized code directly instead of interpreting the code again. This increases the performance and speed of the execution.
 
 ================================================================================================================================================
 
@@ -545,3 +552,7 @@ Generic in Java is added to provide compile-time type-safety of code and removin
 ================================================================================================================================================
 
 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
+
+16. Can the static methods be overridden?
+No! Declaration of static methods having the same signature can be done in the subclass but run time polymorphism can not take place in such cases.
+Overriding or dynamic polymorphism occurs during the runtime, but the static methods are loaded and looked up at the compile time statically. Hence, these methods cant be overridden.
